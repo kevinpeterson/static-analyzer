@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 @Component
 class MavenCentralDownloader {
 
-    void download(groupId, artifactId, versionId, extension, resultClosure){
+    void download(groupId, artifactId, versionId, extension, contentType, resultClosure){
         def artifactPath = artifactId
         def groupPath = groupId.replace('.', '/');
 
@@ -18,7 +18,7 @@ class MavenCentralDownloader {
             println "Unexpected failure: ${resp.statusLine} getting ${path}"
         }
 
-        httpBuilder.get(query: [ filepath:path ]) {
+        httpBuilder.get(query: [ filepath:path ], contentType : contentType) {
             resp, inputSream ->
                 def tempFile = File.createTempFile(UUID.randomUUID().toString(), "." + extension)
                 tempFile.withOutputStream { out -> out << inputSream }

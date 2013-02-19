@@ -1,5 +1,10 @@
 package me.kevinp.research.staticanalyzer.maven
 
+import me.kevinp.research.staticanalyzer.model.Dependency
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader
+import org.apache.maven.project.MavenProject
+import org.springframework.stereotype.Component
+
 /**
  * Created with IntelliJ IDEA.
  * User: m005256
@@ -7,17 +12,31 @@ package me.kevinp.research.staticanalyzer.maven
  * Time: 10:54 PM
  * To change this template use File | Settings | File Templates.
  */
+@Component
 class DependencyChecker {
 
-    void check(){
-         /*
-        MavenXpp3Reader mavenreader = new MavenXpp3Reader();
+    def getDependencies(pom){
+        def mavenReader = new MavenXpp3Reader();
 
-            reader = new FileReader(pomfile);
-            model = mavenreader.read(reader);
-            model.setPomFile(pomfile);
+        def reader = new FileReader(pom);
+        def model = mavenReader.read(reader);
+        def project = new MavenProject(model);
 
-        MavenProject project = new MavenProject(model);
-        */
+        def dependencies = []
+
+        project.
+
+        project.getDependencies().each { dependencies << transforMavenDependencies(it) }
+
+        dependencies
+    }
+
+    def transforMavenDependencies(org.apache.maven.model.Dependency mavenDependency) {
+        def dependency = new Dependency()
+        dependency.artifactId = mavenDependency.artifactId
+        dependency.groupId = mavenDependency.groupId
+        dependency.versionId = mavenDependency.version;
+
+        dependency
     }
 }

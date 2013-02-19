@@ -25,7 +25,7 @@ class Artifact {
     List<ClassMetrics> classMetrics = []
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="artifact")
-    List<Artifact> dependencies = []
+    List<Dependency> dependencies = []
 
     def addClassMetrics(metrics){
         metrics.artifact = this
